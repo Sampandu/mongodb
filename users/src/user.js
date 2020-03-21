@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const postSchema = require('./postSchema');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -11,6 +12,7 @@ const UserSchema = new Schema({
     required: [true, 'Name is required.'], //validation
   },
   postCount: Number,
+  posts: [postSchema], //nesting a schema into another schema, created a subdocument
 });
 
 const User = mongoose.model('user', UserSchema);
