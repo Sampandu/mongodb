@@ -11,8 +11,14 @@ const UserSchema = new Schema({
     },
     required: [true, 'Name is required.'], //validation
   },
-  postCount: Number,
+  // postCount: Number,  //replaced with virtual parameter
   posts: [postSchema], //nesting a schema into another schema, created a subdocument
+  likes: Number,
+});
+
+UserSchema.virtual('postCount').get(function() {
+  //set postCount as virtual type
+  return this.posts.length;
 });
 
 const User = mongoose.model('user', UserSchema);
