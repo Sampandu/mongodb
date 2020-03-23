@@ -14,6 +14,12 @@ const UserSchema = new Schema({
   // postCount: Number,  //replaced with virtual parameter
   posts: [postSchema], //nesting a schema into another schema, created a subdocument
   likes: Number,
+  blogPosts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: blogPost,
+    },
+  ],
 });
 
 UserSchema.virtual('postCount').get(function() {

@@ -19,8 +19,16 @@ before(done => {
 //a hook/function that runs before each test
 beforeEach(done => {
   //.drop() deletes a collection
-  mongoose.connection.collections.users.drop(() => {
-    //ready to do next test by calling done function, done is referenced as a parameter
-    done();
+  // mongoose.connection.collections.users.drop(() => {
+  //   //ready to do next test by calling done function, done is referenced as a parameter
+  //   done();
+  // });
+  const { users, comments, blogposts } = mongoose.connection.collections;
+  users.drop(() => {
+    comments.drop(() => {
+      blogposts.drop(() => {
+        done();
+      });
+    });
   });
 });
