@@ -28,5 +28,4 @@ describe('Middleware', () => {
   // });
   //testing
   //testing2
-  //testing3
 });
