@@ -22,9 +22,16 @@ const UserSchema = new Schema({
   ],
 });
 
+//set postCount as virtual type
 UserSchema.virtual('postCount').get(function() {
-  //set postCount as virtual type
   return this.posts.length;
+});
+
+//set up mongoose middle to clean up a user and its related blogPosts
+UserSchema.pre('remove', function(next) {
+  const BlogPost = mongoose.model(' blogPost');
+  //$in is a mongo operator
+  BlogPost.remove({ _id: { $in: this.blogPosts } }).then(() => next());
 });
 
 const User = mongoose.model('user', UserSchema);
